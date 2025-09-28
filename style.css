@@ -14,6 +14,7 @@ body {
 .banner {
   width: 100%;
   border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 0, 80, 0.5);
 }
 
 .launch-btn {
@@ -25,8 +26,10 @@ body {
   border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .launch-btn:hover {
   background-color: #ff3366;
 }
+

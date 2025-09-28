@@ -1,25 +1,19 @@
-const express = require('express');
-const path = require('path');
-const { createBareServer } = require('@ultraviolet/bare-server-node');
-const { uvPath } = require('@ultraviolet/core');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roblox Launcher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <img src="assets/roblox-banner.jpg" alt="Roblox Banner" class="banner">
+    <h1>Play Roblox Unblocked</h1>
+    <p>Click below to launch Roblox in your browser via now.gg</p>
+    <a href="/bare/https://now.gg/play/roblox-corporation/5349/roblox" target="_blank">
+      <button class="launch-btn">Launch Roblox</button>
+    </a>
+  </div>
+</body>
+</html>
 
-const app = express();
-const bare = createBareServer('/bare/');
-const port = process.env.PORT || 8080;
-
-// Serve static files from /public
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Proxy handler for /bare/
-app.use('/bare/', (req, res) => {
-  bare.handleRequest(req, res);
-});
-
-// Fallback route for SPA or direct visits
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
-app.listen(port, () => {
-  console.log(`✅ Ultraviolet proxy running on port ${port}`);
-});

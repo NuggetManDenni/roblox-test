@@ -7,10 +7,19 @@ const app = express();
 const bare = createBareServer('/bare/');
 const port = process.env.PORT || 8080;
 
+// Serve static files from /public
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bare/', (req, res) => bare.handleRequest(req, res));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+
+// Proxy handler for /bare/
+app.use('/bare/', (req, res) => {
+  bare.handleRequest(req, res);
+});
+
+// Fallback route for SPA or direct visits
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 app.listen(port, () => {
-  console.log(`Ultraviolet proxy running on port ${port}`);
+  console.log(`✅ Ultraviolet proxy running on port ${port}`);
 });
